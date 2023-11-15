@@ -26,6 +26,55 @@ public class MathFuncs {
         T[] ret = (T[]) Array.newInstance(l1.getClass().getComponentType(), 0);
         return joined.toArray(ret);
     }
+    public static @NotNull String reverse(@NotNull String original){
+        StringBuilder ret = new StringBuilder();
+        for(int i = 0; i < original.length(); i++){
+            ret.append(original.charAt(original.length()-1-i));
+        }
+        return ret.toString();
+    }
+    public static char @NotNull[] reverse(char @NotNull [] original){
+        char[] ret = new char[original.length];
+        for(int i = 0; i < original.length; i++){
+            ret[i] = original[original.length-1-i];
+        }
+        return ret;
+    }
+    public static int @NotNull[] reverse(int @NotNull [] original){
+        int[] ret = new int[original.length];
+        for(int i = 0; i < original.length; i++){
+            ret[i] = original[original.length-1-i];
+        }
+        return ret;
+    }
+    public static boolean @NotNull[] reverse(boolean @NotNull [] original){
+        boolean[] ret = new boolean[original.length];
+        for(int i = 0; i < original.length; i++){
+            ret[i] = original[original.length-1-i];
+        }
+        return ret;
+    }
+    public static double @NotNull[] reverse(double @NotNull [] original){
+        double[] ret = new double[original.length];
+        for(int i = 0; i < original.length; i++){
+            ret[i] = original[original.length-1-i];
+        }
+        return ret;
+    }
+    public static float @NotNull[] reverse(float @NotNull [] original){
+        float[] ret = new float[original.length];
+        for(int i = 0; i < original.length; i++){
+            ret[i] = original[original.length-1-i];
+        }
+        return ret;
+    }
+    public static long @NotNull[] reverse(long @NotNull [] original){
+        long[] ret = new long[original.length];
+        for(int i = 0; i < original.length; i++){
+            ret[i] = original[original.length-1-i];
+        }
+        return ret;
+    }
     public static <T> T @NotNull[] reverse(T @NotNull [] original){
         @SuppressWarnings("unchecked")
         T[] ret = (T[]) Array.newInstance(original[0].getClass(),original.length);
@@ -99,6 +148,9 @@ public class MathFuncs {
         if (end - start >= 0) System.arraycopy(init, start, ret, 0, end - start);
         return ret;
     }
+    public static <K> K @NotNull [] slice(K @NotNull [] init, int end){
+        return slice(init,0,end);
+    }
 
     public static <K> K @NotNull [] deleteDuplicates(K[] init) {
         List<K> list = new ArrayList<>(List.of(init));
@@ -119,5 +171,89 @@ public class MathFuncs {
     }
     public static int factorial(int i){
         return i==0?1:i*factorial(i-1);
+    }
+
+    public static <K> K[] echoArr(K[] ret){
+        System.out.println(Arrays.toString(ret));
+        return ret;
+    }
+
+    public static double[] echoArr(double[] ret){
+        System.out.println(Arrays.toString(ret));
+        return ret;
+    }
+
+    public static int[] echoArr(int[] ret){
+        System.out.println(Arrays.toString(ret));
+        return ret;
+    }
+
+    public static boolean[] echoArr(boolean[] ret){
+        System.out.println(Arrays.toString(ret));
+        return ret;
+    }
+
+    public static long[] echoArr(long[] ret){
+        System.out.println(Arrays.toString(ret));
+        return ret;
+    }
+
+    public static <K> K echo(K ret, String s){
+        System.out.println(ret.toString() + s);
+        return ret;
+    }
+
+    public static <K> K echo(String s, K ret){
+        System.out.println(s + ret.toString());
+        return ret;
+    }
+
+    public static <K> K echo(K ret){
+        System.out.println(ret.toString());
+        return ret;
+    }
+    public static <K> K[] randomSample(K[] init){
+        return randomSample(init,-1,0);
+    }
+    public static <K> K[] randomSample(K[] init, int n){
+        return randomSample(init,n,0);
+    }
+    public static <K> K[] randomSample(K[] init, int n, int index){
+        List<K> shuffled = Arrays.asList(init);
+        Collections.shuffle(shuffled);
+        @SuppressWarnings("unchecked")
+        K[] ret = (K[]) Array.newInstance(init[0].getClass(), 0);
+        return n > index ? slice(shuffled.toArray(ret),index,n-1):shuffled.toArray(ret);
+    }
+
+    public static int binaryToInt(Boolean[] bools){
+        int ret = 0;
+        for(int i = 0; i < bools.length; i++){
+            ret+=bools[i]?Math.pow(2,bools.length-i-1):0;
+        }
+        return ret;
+    }
+
+    public static String intToBinary(int n) {
+        StringBuilder s = new StringBuilder();
+        while (n > 0) {
+            s.insert(0, ((n % 2) == 0 ? "0" : "1"));
+            n /= 2;
+        }
+        return s.toString();
+    }
+    public static String stringToBinary(String s){
+        StringBuilder bin = new StringBuilder();
+        for(char i : s.toCharArray()){
+            bin.append(Integer.toBinaryString(i));
+        }
+        return bin.toString();
+    }
+    public static String XOR(String a, String b){
+        StringBuilder ret = new StringBuilder();
+        if(a.length() > b.length())a = "0".repeat(a.length() - b.length()) + a;//THIS EXISTS???
+        else if(b.length() > a.length()) b = "0".repeat(b.length() - a.length()) + b;//THIS EXISTS???
+        for(int i = 0; i < a.length(); i ++) ret.append(!(a.charAt(i)==b.charAt(i)) ? "1":"0");
+        return ret.toString();
     }
 }
